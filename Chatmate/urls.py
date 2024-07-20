@@ -6,6 +6,7 @@ router = routers.DefaultRouter()
 router.register(r'document', views.DocumentViewSet)
 router.register(r'query', views.QueryViewSet)
 router.register(r'combinedchunk', views.CombinedChunkViewSet)
+router.register(r'rooms', views.RoomsViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),  

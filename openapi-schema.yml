@@ -354,6 +354,123 @@ paths:
           description: ''
       tags:
       - api
+  /api/chatmate/api/rooms/:
+    get:
+      operationId: listRooms
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rooms'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createRooms
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rooms'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rooms'
+          description: ''
+      tags:
+      - api
+  /api/chatmate/api/rooms/{id}/:
+    get:
+      operationId: retrieveRooms
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique value identifying this rooms.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rooms'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateRooms
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique value identifying this rooms.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rooms'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rooms'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateRooms
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique value identifying this rooms.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rooms'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rooms'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyRooms
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique value identifying this rooms.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
   /api/chatmate/api/document/upload_file/:
     post:
       operationId: uploadFileDocuments
@@ -495,9 +612,12 @@ components:
           type: string
           format: date-time
           readOnly: true
+        room:
+          type: string
       required:
       - query_text
       - response_text
+      - room
     CombinedChunk:
       type: object
       properties:
@@ -514,3 +634,22 @@ components:
           type: string
           format: date-time
           readOnly: true
+    Rooms:
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - name

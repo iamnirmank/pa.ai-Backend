@@ -15,3 +15,8 @@ class CombinedChunkSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CombinedChunk
         fields = '__all__'
+
+class RoomsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Rooms
+        fields = '__all__'
