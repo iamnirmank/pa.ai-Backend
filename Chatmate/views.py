@@ -1,5 +1,5 @@
 from Chatmate.Utility.auth_helpers import create_response
-from Chatmate.Utility.query_processing import process_query
+from Chatmate.Utility.processing_query import process_query
 from Chatmate.models import Documents, Query
 from Chatmate.serializers import DocumentSerializer, QuerySerializer
 from rest_framework import viewsets, status
@@ -17,8 +17,8 @@ class DocumentViewSet(viewsets.ModelViewSet):
     def upload_file(self, request):
         file = request.data.get('file')
         if file:
-            Documents.objects.create(file=file)
-        return create_response(True, 'Document uploaded successfully', status.HTTP_201_CREATED)
+            document = Documents.objects.create(file=file)
+        return create_response(True, 'Document uploaded successfully', body=DocumentSerializer(document).data, status_code=status.HTTP_201_CREATED)
 
 class QueryViewSet(viewsets.ModelViewSet):
     queryset = Query.objects.all()

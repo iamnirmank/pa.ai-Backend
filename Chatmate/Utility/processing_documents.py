@@ -1,4 +1,4 @@
-from Chatmate.Utility.text_extraction import link_parser, document_parser
+from Chatmate.Utility.parsing_utility import link_parser, document_parser
 from Chatmate.models import Documents
 
 def load_documents():
@@ -19,7 +19,5 @@ def load_documents():
 
     # Combine file_chunks and link_chunks
     combined_chunks = link_chunks + file_chunks
-
-    print("combined_chunks: ", combined_chunks)
     
     return combined_chunks

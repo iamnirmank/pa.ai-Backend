@@ -1,14 +1,15 @@
 import os
 import numpy as np
-from Chatmate.Utility.document_processing import load_documents
-from Chatmate.Utility.response_with_together import generate_response_with_llama
-from Chatmate.Utility.document_indexing import compute_embeddings, create_index, process_documents, retrieve_chunks
+# from Chatmate.Utility.huggingface_response import generate_response_with_llama
+# from Chatmate.Utility.together_ai_response import generate_response_with_llama
+from Chatmate.Utility.groq_response import generate_response_with_llama
+from Chatmate.Utility.processing_documents import load_documents
+from Chatmate.Utility.indexing_documents import compute_embeddings, create_index, process_documents, retrieve_chunks
 import faiss
 
 def process_query(query):
     """Process a user query by retrieving relevant documents and generating a response."""
     context = context_extraction(query)
-    print("context: ", context)
     additional_note = "Give the detailed answer in a very detailed manner with the natural tone of the language."
     combined_input = f"Context: {context}\n\nQuestion: {query}\n\nAdditional Note: {additional_note}\n\nAnswer:"
     response = generate_response_with_llama(combined_input)
