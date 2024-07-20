@@ -7,11 +7,14 @@ db.sqlite3
 # FAISS index file
 index.faiss
 
-# Milvus demo database
+# Milvus demo database file
 milvus_demo.db
 
 # Virtual environment directory
 venv/
 
-# Django static files directory
+# Collected static files
 staticfiles/
+
+# Directory for documents
+documents/
