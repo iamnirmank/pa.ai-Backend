@@ -29,9 +29,9 @@ def process_documents(documents):
     """
     all_chunks = []
     for doc in documents:
-        chunks = chunk_text(doc.text)
+        chunks = chunk_text(doc["text"])
         for i, chunk in enumerate(chunks):
-            all_chunks.append(DocumentChunk(id_=doc.id_, chunk_id=i, text=chunk))
+            all_chunks.append(DocumentChunk(id_=doc["id_"], chunk_id=i, text=chunk))
     return all_chunks
 
 def compute_embeddings(chunks):

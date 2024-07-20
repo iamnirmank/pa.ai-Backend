@@ -3,9 +3,10 @@ import numpy as np
 # from Chatmate.Utility.huggingface_response import generate_response_with_llama
 # from Chatmate.Utility.together_ai_response import generate_response_with_llama
 from Chatmate.Utility.groq_response import generate_response_with_llama
-from Chatmate.Utility.processing_documents import load_documents
 from Chatmate.Utility.indexing_documents import compute_embeddings, create_index, process_documents, retrieve_chunks
 import faiss
+
+from Chatmate.models import CombinedChunk
 
 def process_query(query):
     """Process a user query by retrieving relevant documents and generating a response."""
@@ -18,8 +19,7 @@ def process_query(query):
 
 def context_extraction(query):
     """Index the documents into Milvus using LlamaIndex."""
-    chunk = load_documents()
-
+    chunk = CombinedChunk.objects.get(id=1).chunks
     chunks = process_documents(chunk)
     embeddings = compute_embeddings(chunks)
     index = create_index(np.array(embeddings))

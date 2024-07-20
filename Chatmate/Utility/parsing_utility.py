@@ -8,8 +8,6 @@ def document_parser(file_path):
     """Parse the text of a document using LlamaParse."""
     # Set up parser
     parser = LlamaParse(result_type="markdown")
-
-    print("file_path: ", file_path)
     
     # Define supported file extensions and their corresponding parsers
     supported_file_types = [

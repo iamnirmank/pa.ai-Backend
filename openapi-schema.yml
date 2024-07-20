@@ -237,6 +237,123 @@ paths:
           description: ''
       tags:
       - api
+  /api/chatmate/api/combinedchunk/:
+    get:
+      operationId: listCombinedChunks
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CombinedChunk'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createCombinedChunk
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CombinedChunk'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CombinedChunk'
+          description: ''
+      tags:
+      - api
+  /api/chatmate/api/combinedchunk/{id}/:
+    get:
+      operationId: retrieveCombinedChunk
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this combined chunk.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CombinedChunk'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateCombinedChunk
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this combined chunk.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CombinedChunk'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CombinedChunk'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateCombinedChunk
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this combined chunk.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CombinedChunk'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CombinedChunk'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyCombinedChunk
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this combined chunk.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
   /api/chatmate/api/document/upload_file/:
     post:
       operationId: uploadFileDocuments
@@ -275,6 +392,60 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Query'
+          description: ''
+      tags:
+      - api
+  /api/chatmate/api/document/{id}/update_document/:
+    put:
+      operationId: updateDocumentDocuments
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this documents.
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Document'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Document'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+          description: ''
+      tags:
+      - api
+  /api/chatmate/api/document/delete_all_documents/:
+    delete:
+      operationId: deleteAllDocumentsDocuments
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/chatmate/api/document/{id}/delete_document/:
+    delete:
+      operationId: deleteDocumentDocuments
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this documents.
+        schema:
+          type: string
+      responses:
+        '204':
           description: ''
       tags:
       - api
@@ -327,3 +498,19 @@ components:
       required:
       - query_text
       - response_text
+    CombinedChunk:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        chunks:
+          type: object
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true

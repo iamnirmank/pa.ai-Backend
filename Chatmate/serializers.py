@@ -10,3 +10,8 @@ class QuerySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Query
         fields = '__all__'
+
+class CombinedChunkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.CombinedChunk
+        fields = '__all__'

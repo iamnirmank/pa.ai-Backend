@@ -5,6 +5,7 @@ from . import views
 router = routers.DefaultRouter()
 router.register(r'document', views.DocumentViewSet)
 router.register(r'query', views.QueryViewSet)
+router.register(r'combinedchunk', views.CombinedChunkViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),  
