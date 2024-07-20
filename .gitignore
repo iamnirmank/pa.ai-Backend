@@ -1,0 +1,17 @@
+# Environment variables file
+.env
+
+# SQLite database file
+db.sqlite3
+
+# FAISS index file
+index.faiss
+
+# Milvus demo database
+milvus_demo.db
+
+# Virtual environment directory
+venv/
+
+# Django static files directory
+staticfiles/
