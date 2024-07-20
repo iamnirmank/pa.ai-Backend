@@ -7,7 +7,6 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.exceptions import ValidationError
-from django.http import StreamingHttpResponse
 
 
 class DocumentViewSet(viewsets.ModelViewSet):
@@ -18,10 +17,11 @@ class DocumentViewSet(viewsets.ModelViewSet):
     def upload_file(self, request):
         try:
             file = request.data.get('file')
+            title = request.data.get('title')
             if not file:
                 raise ValidationError('No file provided')
             
-            document = Documents.objects.create(file=file)
+            document = Documents.objects.create(file=file, title=title)
             update_combined_chunks()
             
             return create_response(
@@ -42,10 +42,13 @@ class DocumentViewSet(viewsets.ModelViewSet):
         try:
             document = self.get_object()
             file = request.data.get('file')
-            if not file:
-                raise ValidationError('No file provided')
-
-            document.file = file
+            title = request.data.get('title')
+            if title:
+                document.title = title
+            if file:
+                if document.file:
+                    document.file.delete
+                document.file = file
             document.save()
             update_combined_chunks()
             
