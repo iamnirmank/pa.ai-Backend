@@ -1,33 +1,8 @@
-from PyPDF2 import PdfReader
-import docx
 from llama_index.readers.web import SimpleWebPageReader
 from llama_index.core import SimpleDirectoryReader
 from llama_parse import LlamaParse
 from dotenv import load_dotenv
 load_dotenv()
-
-def extract_text(file_path):
-    """Extract text from a file."""
-
-    print("file_path: ", file_path)
-    if file_path.endswith('.pdf'):
-        with open(file_path, 'rb') as file:
-            pdf = PdfReader(file)
-            text = ''
-            for page in pdf.pages:
-                text += page.extract_text()
-            return text
-    elif file_path.endswith('.docx'):
-        doc = docx.Document(file_path)
-        text = ''
-        for para in doc.paragraphs:
-            text += para.text
-        return text
-    elif file_path.endswith('.txt') or file_path.endswith(''):
-        with open(file_path, 'r') as file:
-            text = file.read()
-            return text
-    return ""
 
 def document_parser(file_path):
     """Parse the text of a document using LlamaParse."""

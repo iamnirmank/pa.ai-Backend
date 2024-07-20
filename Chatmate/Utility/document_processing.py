@@ -17,10 +17,6 @@ def load_documents():
     
     link_chunks = link_parser(links) if links else []
 
-    print("file_chunks: ", file_chunks)
-    print("link_chunks: ", link_chunks)
-
-
     # Combine file_chunks and link_chunks
     combined_chunks = link_chunks + file_chunks
 
