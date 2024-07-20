@@ -18,9 +18,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
         try:
             file = request.data.get('file')
             title = request.data.get('title')
-            if not file:
-                raise ValidationError('No file provided')
-            
+            link = request.data.get('link')
             document = Documents.objects.create(file=file, title=title)
             update_combined_chunks()
             
@@ -43,14 +41,18 @@ class DocumentViewSet(viewsets.ModelViewSet):
             document = self.get_object()
             file = request.data.get('file')
             title = request.data.get('title')
+            link = request.data.get('link')
             if title:
                 document.title = title
             if file:
                 if document.file:
                     document.file.delete
                 document.file = file
+                update_combined_chunks()
+            if link:
+                document.link = link
+                update_combined_chunks()
             document.save()
-            update_combined_chunks()
             
             return create_response(
                 True, 

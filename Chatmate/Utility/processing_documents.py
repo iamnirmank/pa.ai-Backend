@@ -59,7 +59,6 @@ def update_combined_chunks():
     from Chatmate.models import CombinedChunk
     try:
         combined_chunks = load_documents()
-        logger.info(f"Combined chunks: {combined_chunks}")
 
         combined_chunk_instance, created = CombinedChunk.objects.get_or_create(id=1, defaults={'chunks': combined_chunks})
         if not created:
