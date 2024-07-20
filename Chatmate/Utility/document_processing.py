@@ -1,4 +1,4 @@
-from Chatmate.Utility.text_extraction import extract_text, link_parser, document_parser
+from Chatmate.Utility.text_extraction import link_parser, document_parser
 from Chatmate.models import Documents
 
 def load_documents():
