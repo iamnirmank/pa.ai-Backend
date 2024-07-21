@@ -5,7 +5,7 @@ services:
         build: ./backend_directory/
         container_name: backend_container
         ports:
-            - "3003: 3003" 
+            - "3003:3003" 
         volumes:
             - ./backend:/app/backend_directory 
         depends_on: 
