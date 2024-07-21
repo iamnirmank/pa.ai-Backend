@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-(d3^^8lk!3m#jn83=pm_rxga7a72+s=r(lka!l!hbsea_2t(*#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['paai.azurewebsites.net', 'localhost']
+ALLOWED_HOSTS = ['paai.azurewebsites.net', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -49,8 +49,6 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'Chatmate',
-
-    'daphne',
 ]
 
 MIDDLEWARE = [
