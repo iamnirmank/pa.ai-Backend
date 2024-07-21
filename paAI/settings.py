@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-(d3^^8lk!3m#jn83=pm_rxga7a72+s=r(lka!l!hbsea_2t(*#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['paAI.azurewebsites.net', 'localhost']
+ALLOWED_HOSTS = ['paai.azurewebsites.net', 'localhost']
 
 
 # Application definition
@@ -95,7 +95,7 @@ WSGI_APPLICATION = 'paAI.wsgi.application'
 #     }
 # }
 
-# Postresql configuration
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
