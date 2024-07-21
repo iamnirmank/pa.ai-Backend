@@ -16,13 +16,24 @@ def process_query(query, room_id):
     try:
         context = context_extraction(query)
         previous_context = process_history(room_id)
-        additional_note = "Give the detailed answer in a very detailed manner with the natural tone of the language."
-        combined_input = f"Context: {context}\n\nChat_History: {previous_context}\n\nQuestion: {query}\n\nAdditional Note: {additional_note}\n\nAnswer:"
+        additional_note = (
+            "Provide a detailed and thorough answer. "
+            "Use a natural and conversational tone, "
+            "and ensure the response feels engaging and human-like."
+        )
+        combined_input = (
+            f"Context: {context}\n\n"
+            f"Chat History: {previous_context}\n\n"
+            f"Question: {query}\n\n"
+            f"Additional Note: {additional_note}\n\n"
+            "Answer:"
+        )
         response = generate_response_with_llama(combined_input)
     except Exception as e:
         logger.error(f"Error processing query: {e}")
         response = "An error occurred while processing your query. Please try again later."
     return response
+
 
 def context_extraction(query):
     """Index the documents into Milvus using LlamaIndex."""

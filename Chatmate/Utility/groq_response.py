@@ -7,7 +7,7 @@ def generate_response_with_llama(query, model="llama3-8b-8192"):
     """
     try:
         # Initialize the Groq client with API key from environment variable
-        client = Groq(api_key=os.environ.get("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"))
+        client = Groq(api_key="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")
 
         # Create a chat completion request
         chat_completion = client.chat.completions.create(

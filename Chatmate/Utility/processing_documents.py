@@ -1,4 +1,4 @@
-from Chatmate.Utility.parsing_utility import document_parser, link_parser
+from Chatmate.Utility.parsing_utility import document_parser, link_parser, read_file
 import logging
 
 # Configure logging
@@ -13,30 +13,26 @@ def load_documents():
 
         logger.info(f"Loaded {len(documents)} documents from the database.")
 
-        file_paths = [doc.file.path for doc in documents if doc.file]
-        logger.info(f"Extracted {len(file_paths)} file paths from documents.")
-        links = [doc.link for doc in documents if doc.link]
+        all_chunks = []
+        for doc in documents:
+            if doc.file:
+                try:
+                    file_chunks = read_file(doc.file.path)
+                    all_chunks.extend(file_chunks)
+                except Exception as e:
+                    logger.error(f"Error parsing document at {doc.file.path}: {str(e)}")
 
-        file_chunks = []
-        for path in file_paths:
-            try:
-                file_chunks.extend(document_parser(path))
-            except Exception as e:
-                logger.error(f"Error parsing document at {path}: {str(e)}")
+            if doc.link:
+                try:
+                    link_chunks = link_parser(doc.link)
+                    all_chunks.extend(link_chunks)
+                except Exception as e:
+                    logger.error(f"Error parsing links: {str(e)}")
 
-        link_chunks = []
-        if links:
-            try:
-                link_chunks = link_parser(links)
-            except Exception as e:
-                logger.error(f"Error parsing links: {str(e)}")
+        # Ensure all_chunks only contains JSON-serializable data
+        all_chunks = [chunk_to_dict(chunk) for chunk in all_chunks]
 
-        combined_chunks = link_chunks + file_chunks
-
-        # Ensure combined_chunks only contains JSON-serializable data
-        combined_chunks = [chunk_to_dict(chunk) for chunk in combined_chunks]
-
-        return combined_chunks
+        return all_chunks
 
     except Exception as e:
         logger.error(f"Error loading documents: {str(e)}")
@@ -58,15 +54,15 @@ def chunk_to_dict(chunk):
 def update_combined_chunks():
     from Chatmate.models import CombinedChunk
     try:
-        combined_chunks = load_documents()
+        all_chunks = load_documents()
+        print("All chunks:", all_chunks)
 
-        combined_chunk_instance, created = CombinedChunk.objects.get_or_create(id=1, defaults={'chunks': combined_chunks})
+        combined_chunk_instance, created = CombinedChunk.objects.get_or_create(id=1, defaults={'chunks': all_chunks})
         if not created:
-            combined_chunk_instance.chunks = combined_chunks
+            combined_chunk_instance.chunks = all_chunks
             combined_chunk_instance.save()
             logger.info("Combined chunks updated successfully.")
         else:
             logger.info("Combined chunks created successfully.")
     except Exception as e:
         logger.error(f"Error updating combined chunks: {str(e)}")
-

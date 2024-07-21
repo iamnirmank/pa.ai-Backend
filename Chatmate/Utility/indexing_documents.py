@@ -1,9 +1,9 @@
+import random
 from sentence_transformers import SentenceTransformer
 import faiss
 
 class Document:
     def __init__(self, id_, text):
-        self.id_ = id_
         self.text = text
 
 class DocumentChunk:
@@ -28,6 +28,9 @@ def chunk_text(text, chunk_size=100):
         return [' '.join(words[i:i + chunk_size]) for i in range(0, len(words), chunk_size)]
     except Exception as e:
         raise ValueError(f"Error chunking text: {str(e)}")
+    
+def generate_rendom_id():
+    return random.randint(100000, 999999)
 
 def process_documents(documents):
     """
@@ -38,7 +41,7 @@ def process_documents(documents):
         for doc in documents:
             chunks = chunk_text(doc["text"])
             for i, chunk in enumerate(chunks):
-                all_chunks.append(DocumentChunk(id_=doc["id_"], chunk_id=i, text=chunk))
+                all_chunks.append(DocumentChunk(id_=generate_rendom_id, chunk_id=i, text=chunk))
     except KeyError as e:
         raise KeyError(f"Document is missing a required key: {str(e)}")
     except Exception as e:
