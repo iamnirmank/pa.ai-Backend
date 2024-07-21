@@ -138,6 +138,31 @@ class QueryViewSet(viewsets.ModelViewSet):
                 f'Error processing query: {str(e)}', 
                 status_code=status.HTTP_400_BAD_REQUEST
             )
+    # edit query by id
+    @action(detail=True, methods=['put'])
+    def edit_query(self, request, pk=None):
+        try:
+            query = self.get_object()
+            query_text = request.data.get('query')
+            room_id = request.data.get('room')
+            query.query_text = query_text
+            query.response_text = process_query(query_text, room_id)
+            if room_id:
+                query.room_id = room_id
+            query.save()
+            
+            return create_response(
+                True, 
+                'Query edited successfully', 
+                body=QuerySerializer(query).data, 
+                status_code=status.HTTP_200_OK
+            )
+        except Exception as e:
+            return create_response(
+                False, 
+                f'Error editing query: {str(e)}', 
+                status_code=status.HTTP_400_BAD_REQUEST
+            )
 
     @action(detail=True, methods=['get'])
     def get_queries_by_room_id(self, request, pk=None):

@@ -237,6 +237,26 @@ paths:
           description: ''
       tags:
       - api
+  /api/chatmate/api/query/{id}/get_queries_by_room_id/:
+    get:
+      operationId: getQueriesByRoomIdQuery
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this query.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Query'
+          description: ''
+      tags:
+      - api
   /api/chatmate/api/combinedchunk/:
     get:
       operationId: listCombinedChunks
@@ -537,6 +557,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Document'
+          description: ''
+      tags:
+      - api
+  /api/chatmate/api/query/{id}/edit_query/:
+    put:
+      operationId: editQueryQuery
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this query.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Query'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Query'
           description: ''
       tags:
       - api

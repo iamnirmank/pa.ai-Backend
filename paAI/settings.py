@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-(d3^^8lk!3m#jn83=pm_rxga7a72+s=r(lka!l!hbsea_2t(*#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['paAI.azurewebsites.net', 'localhost']
 
 
 # Application definition
@@ -169,6 +169,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
     'http://localhost:5174',
     'http://127.0.0.1:5173',
+    'https://ambitious-pond-0af2e5e0f.5.azurestaticapps.net',
 ]
 CORS_ALLOW_METHODS = [
     'GET',
