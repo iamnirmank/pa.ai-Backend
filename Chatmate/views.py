@@ -19,7 +19,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
             file = request.data.get('file')
             title = request.data.get('title')
             link = request.data.get('link')
-            document = Documents.objects.create(file=file, title=title)
+            document = Documents.objects.create(file=file, title=title, link=link)
             update_combined_chunks()
             
             return create_response(
