@@ -2,12 +2,12 @@ version: "3.12"
 name: "image_name"
 services:
     backend_service_name:
-        build: ./backend_directory/
+        build: .
         container_name: backend_container
         ports:
             - "3003:3003" 
         volumes:
-            - ./backend:/app/backend_directory 
+            - ./backend:/app/
         depends_on: 
             - db_service_name
         environment:
